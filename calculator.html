@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paint & Carpet Budget Calculators</title>
+  <style>
+    :root { --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22c55e; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+           background: var(--bg); color: var(--ink); }
+    .wrap { max-width: 900px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 1.875rem; margin: 0 0 20px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    @media (min-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .card { background: linear-gradient(180deg, #111827 0%, #0b1020 100%);
+            border: 1px solid #1f2937; border-radius: 16px; padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.25);}
+    .card h2 { margin: 0 0 12px; font-size: 1.25rem; }
+    label { font-size: .9rem; color: var(--muted); display:block; margin-bottom: 6px; }
+    .row { display:flex; gap:10px; align-items:flex-end; }
+    input[type="number"] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #1f2937;
+                           background:#0b1222; color:var(--ink); outline: none; }
+    input[type="number"]:focus { border-color:#334155; box-shadow: 0 0 0 4px rgba(51,65,85,.25); }
+    .hint { font-size: .8rem; color: var(--muted); margin-top: 6px; }
+    .out { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .pill { background:#0b1222; border:1px solid #1f2937; padding:12px; border-radius:12px; }
+    .pill small { color: var(--muted); display:block; margin-bottom:4px; }
+    .pill strong { font-size: 1.1rem; }
+    .range { font-size:.85rem; color: var(--muted); margin-top: 10px; }
+    .foot { margin-top: 18px; font-size:.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Owner Budget Calculators</h1>
+    <div class="grid">
+      <!-- Paint Calculator -->
+      <div class="card" id="paintCard">
+        <h2>Paint Budget</h2>
+        <label for="paintSqft">Area (sq ft)</label>
+        <div class="row">
+          <input type="number" id="paintSqft" placeholder="e.g., 1200" min="0" step="1" />
+        </div>
+        <div class="hint">Pricing guidance: $2.00–$2.50 per sq ft (interior repaint baseline).</div>
+        <div class="out">
+          <div class="pill"><small>Low</small><strong id="paintLow">$0</strong></div>
+          <div class="pill"><small>High</small><strong id="paintHigh">$0</strong></div>
+        </div>
+        <div class="range" id="paintPerSq">$0.00–$0.00 per sq ft</div>
+        <div class="foot">Notes: excludes major drywall repair, high-ladders, specialty finishes.</div>
+      </div>
+
+      <!-- Carpet Calculator -->
+      <div class="card" id="carpetCard">
+        <h2>Carpet Replacement Budget</h2>
+        <label for="carpetSqft">Area (sq ft)</label>
+        <div class="row">
+          <input type="number" id="carpetSqft" placeholder="e.g., 1200" min="0" step="1" />
+        </div>
+        <div class="hint">Pricing guidance: $3.29–$4.01 per sq ft (material, pad & basic install).</div>
+        <div class="out">
+          <div class="pill"><small>Low</small><strong id="carpetLow">$0</strong></div>
+          <div class="pill"><small>High</small><strong id="carpetHigh">$0</strong></div>
+        </div>
+        <div class="range" id="carpetPerSq">$0.00–$0.00 per sq ft</div>
+        <div class="foot">Notes: stairs, furniture move, floor leveling or disposal may add cost.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const perFmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+
+    // Price ranges (edit here if your market changes)
+    const PAINT_LOW = 2.00, PAINT_HIGH = 2.50;
+    const CARPET_LOW = 3.29, CARPET_HIGH = 4.01;
+
+    function calc(idPrefix, sqft, low, high) {
+      const lowEl = document.getElementById(idPrefix + 'Low');
+      const highEl = document.getElementById(idPrefix + 'High');
+      const perEl = document.getElementById(idPrefix + 'PerSq');
+      const s = Math.max(0, Number(sqft) || 0);
+
+      const lowTotal = s * low;
+      const highTotal = s * high;
+
+      lowEl.textContent = fmt.format(lowTotal);
+      highEl.textContent = fmt.format(highTotal);
+      perEl.textContent = `${perFmt.format(low)}–${perFmt.format(high)} per sq ft`;
+    }
+
+    const paintInput = document.getElementById('paintSqft');
+    const carpetInput = document.getElementById('carpetSqft');
+
+    function handleInput(e) {
+      calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
+      calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
+    }
+
+    paintInput.addEventListener('input', handleInput);
+    carpetInput.addEventListener('input', handleInput);
+
+    // Seed both with the same value when user starts typing in one
+    paintInput.addEventListener('input', () => { if (!carpetInput.value) carpetInput.value = paintInput.value; });
+    carpetInput.addEventListener('input', () => { if (!paintInput.value) paintInput.value = carpetInput.value; });
+
+    // Initialize
+    handleInput();
+  </script>
+</body>
+</html>
+
