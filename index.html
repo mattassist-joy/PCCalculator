@@ -74,8 +74,8 @@
   </div>
 
   <script>
-    const fmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-    const perFmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+    const fmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const perFmt = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     // Price ranges (edit here if your market changes)
     const PAINT_LOW = 2.00, PAINT_HIGH = 2.50;
@@ -115,6 +115,7 @@
   </script>
 </body>
 </html>
+
 
 
 
