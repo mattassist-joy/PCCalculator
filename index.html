@@ -7,20 +7,39 @@
   <style>
     :root { --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22c55e; }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-           background: var(--bg); color: var(--ink); }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
     .wrap { max-width: 900px; margin: 40px auto; padding: 0 16px; }
-    h1 { font-size: 1.875rem; margin: 0 0 20px; }
+    h1 { font-size: 1.875rem; margin: 0 0 20px; text-align:center; }
     .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
     @media (min-width: 860px) { .grid { grid-template-columns: 1fr 1fr; } }
-    .card { background: linear-gradient(180deg, #111827 0%, #0b1020 100%);
-            border: 1px solid #1f2937; border-radius: 16px; padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,.25);}
+    .card {
+      background: linear-gradient(180deg, #111827 0%, #0b1020 100%);
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.25);
+    }
     .card h2 { margin: 0 0 12px; font-size: 1.25rem; }
     label { font-size: .9rem; color: var(--muted); display:block; margin-bottom: 6px; }
     .row { display:flex; gap:10px; align-items:flex-end; }
-    input[type="number"] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #1f2937;
-                           background:#0b1222; color:var(--ink); outline: none; }
-    input[type="number"]:focus { border-color:#334155; box-shadow: 0 0 0 4px rgba(51,65,85,.25); }
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      background:#0b1222;
+      color:var(--ink);
+      outline: none;
+    }
+    input[type="number"]:focus {
+      border-color:#334155;
+      box-shadow: 0 0 0 4px rgba(51,65,85,.25);
+    }
     .hint { font-size: .8rem; color: var(--muted); margin-top: 6px; }
     .out { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
     .pill { background:#0b1222; border:1px solid #1f2937; padding:12px; border-radius:12px; }
@@ -32,12 +51,15 @@
 </head>
 <body>
   <div class="wrap">
+    <!-- Logo in white block -->
     <div style="background:#FFFFFF; border-radius:8px; padding:12px 20px; max-width:220px; margin:30px auto; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
-    <a href="https://www.beaufortscrentals.com/" target="_blank">
-  <img src="BeaufortRentalsLogo.png" alt="Company Logo" style="width:180px; display:block; margin:20px auto;" />
-</a>
-        </div>
+      <a href="https://www.beaufortscrentals.com/" target="_blank">
+        <img src="BeaufortRentalsLogo.png" alt="Company Logo" style="width:180px; display:block; margin:0 auto;" />
+      </a>
+    </div>
+
     <h1>Budget Calculators</h1>
+
     <div class="grid">
       <!-- Paint Calculator -->
       <div class="card" id="paintCard">
@@ -48,8 +70,8 @@
         </div>
         <div class="hint">Pricing guidance: $2.00–$2.50 per sq ft (interior repaint baseline).</div>
         <div class="out">
-          <div class="pill"><small>Low</small><strong id="paintLow">$0</strong></div>
-          <div class="pill"><small>High</small><strong id="paintHigh">$0</strong></div>
+          <div class="pill"><small>Low</small><strong id="paintLow">$0.00</strong></div>
+          <div class="pill"><small>High</small><strong id="paintHigh">$0.00</strong></div>
         </div>
         <div class="range" id="paintPerSq">$0.00–$0.00 per sq ft</div>
         <div class="foot">Notes: excludes major drywall repair, high-ladders, specialty finishes.</div>
@@ -64,142 +86,120 @@
         </div>
         <div class="hint">Pricing guidance: $3.29–$4.01 per sq ft (material, pad & basic install).</div>
         <div class="out">
-          <div class="pill"><small>Low</small><strong id="carpetLow">$0</strong></div>
-          <div class="pill"><small>High</small><strong id="carpetHigh">$0</strong></div>
+          <div class="pill"><small>Low</small><strong id="carpetLow">$0.00</strong></div>
+          <div class="pill"><small>High</small><strong id="carpetHigh">$0.00</strong></div>
         </div>
         <div class="range" id="carpetPerSq">$0.00–$0.00 per sq ft</div>
         <div class="foot">Notes: stairs, furniture move, floor leveling or disposal may add cost.</div>
       </div>
     </div>
+
+    <!-- Template 1: Carpet Replacement -->
+    <div class="card" style="max-width: 900px; margin: 30px auto 40px auto;">
+      <h2>Template 1: Carpet Replacement</h2>
+      <p><strong>Subject:</strong> Heads up on possible carpet replacement</p>
+
+      <p>Hi [Owner First Name],</p>
+
+      <p>
+        I hope you’re well. Following our most recent inspection, the carpet at your property is
+        starting to show some wear and will likely need to be replaced at the next tenant turnover.
+        It’s not urgent right now, but it’s something we’ll want to plan for.
+      </p>
+
+      <p>
+        Based on the home’s size, replacement would likely fall somewhere between
+        [
+        <span id="tplCarpetLow">$0.00</span>
+        –
+        <span id="tplCarpetHigh">$0.00</span>
+        ].
+        That’s just an estimate for planning purposes, but it should give you a good idea of what to expect.
+        When the home turns over, we’ll take another look and confirm whether replacement is needed.
+      </p>
+
+      <p>
+        Getting ahead of these things helps avoid surprises and keeps the home looking sharp for the next tenant.
+        Let us know if you’d like a more detailed estimate or if you’d prefer to hold off until turnover.
+      </p>
+
+      <p>Thanks,<br/>
+      [Team Member Name]<br/>
+      Beaufort Rentals</p>
+    </div>
   </div>
 
   <script>
-   // Formatters with cents displayed
-const fmt = new Intl.NumberFormat(undefined, { 
-  style: 'currency', 
-  currency: 'USD', 
-  minimumFractionDigits: 2, 
-  maximumFractionDigits: 2 
-});
-const perFmt = new Intl.NumberFormat(undefined, { 
-  style: 'currency', 
-  currency: 'USD', 
-  minimumFractionDigits: 2, 
-  maximumFractionDigits: 2 
-});
+    // Formatters with cents displayed
+    const fmt = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    const perFmt = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
 
-// Price ranges (edit here if your market changes)
-const PAINT_LOW = 2.00, PAINT_HIGH = 2.50;
-const CARPET_LOW = 3.29, CARPET_HIGH = 4.01;
+    // Price ranges (edit here if your market changes)
+    const PAINT_LOW = 2.00, PAINT_HIGH = 2.50;
+    const CARPET_LOW = 3.29, CARPET_HIGH = 4.01;
 
-function calc(idPrefix, sqft, low, high) {
-  const lowEl = document.getElementById(idPrefix + 'Low');
-  const highEl = document.getElementById(idPrefix + 'High');
-  const perEl = document.getElementById(idPrefix + 'PerSq');
-  const s = Math.max(0, Number(sqft) || 0);
+    function calc(idPrefix, sqft, low, high) {
+      const lowEl = document.getElementById(idPrefix + 'Low');
+      const highEl = document.getElementById(idPrefix + 'High');
+      const perEl = document.getElementById(idPrefix + 'PerSq');
+      const s = Math.max(0, Number(sqft) || 0);
 
-  const lowTotal = s * low;
-  const highTotal = s * high;
+      const lowTotal = s * low;
+      const highTotal = s * high;
 
-  lowEl.textContent = fmt.format(lowTotal);
-  highEl.textContent = fmt.format(highTotal);
-  perEl.textContent = `${perFmt.format(low)}–${perFmt.format(high)} per sq ft`;
-}
+      lowEl.textContent = fmt.format(lowTotal);
+      highEl.textContent = fmt.format(highTotal);
+      perEl.textContent = `${perFmt.format(low)}–${perFmt.format(high)} per sq ft`;
+    }
 
-const paintInput = document.getElementById('paintSqft');
-const carpetInput = document.getElementById('carpetSqft');
+    function updateCarpetTemplate() {
+      const carpetInputEl = document.getElementById('carpetSqft');
+      const sqft = Math.max(0, Number(carpetInputEl.value) || 0);
 
-function handleInput(e) {
-  calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
-  calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
-}
+      const lowTotal = sqft * CARPET_LOW;
+      const highTotal = sqft * CARPET_HIGH;
 
-paintInput.addEventListener('input', handleInput);
-carpetInput.addEventListener('input', handleInput);
+      const tplLowEl = document.getElementById('tplCarpetLow');
+      const tplHighEl = document.getElementById('tplCarpetHigh');
 
-// Sync the two fields for convenience
-paintInput.addEventListener('input', () => { if (!carpetInput.value) carpetInput.value = paintInput.value; });
-carpetInput.addEventListener('input', () => { if (!paintInput.value) paintInput.value = carpetInput.value; });
+      if (tplLowEl && tplHighEl) {
+        tplLowEl.textContent = fmt.format(lowTotal);
+        tplHighEl.textContent = fmt.format(highTotal);
+      }
+    }
 
-function updateCarpetTemplate() {
-  const carpetInputEl = document.getElementById('carpetSqft');
-  const sqft = Math.max(0, Number(carpetInputEl.value) || 0);
+    const paintInput = document.getElementById('paintSqft');
+    const carpetInput = document.getElementById('carpetSqft');
 
-  const lowTotal = sqft * CARPET_LOW;
-  const highTotal = sqft * CARPET_HIGH;
+    function handleInput(e) {
+      calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
+      calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
+      updateCarpetTemplate();
+    }
 
-  const tplLowEl = document.getElementById('tplCarpetLow');
-  const tplHighEl = document.getElementById('tplCarpetHigh');
+    paintInput.addEventListener('input', handleInput);
+    carpetInput.addEventListener('input', handleInput);
 
-  if (tplLowEl && tplHighEl) {
-    tplLowEl.textContent = fmt.format(lowTotal);
-    tplHighEl.textContent = fmt.format(highTotal);
-  }
-}
+    // Sync the two fields for convenience
+    paintInput.addEventListener('input', () => {
+      if (!carpetInput.value) carpetInput.value = paintInput.value;
+    });
+    carpetInput.addEventListener('input', () => {
+      if (!paintInput.value) paintInput.value = carpetInput.value;
+    });
 
-    
-// Initialize
-handleInput();
-
+    // Initialize
+    handleInput();
   </script>
-
-<!-- Template 1: Carpet Replacement -->
-<div class="card" style="max-width: 900px; margin: 30px auto 40px auto;">
-  <h2>Template 1: Carpet Replacement</h2>
-  <p><strong>Subject:</strong> Heads up on possible carpet replacement</p>
-
-  <p>Hi [Owner First Name],</p>
-
-  <p>
-    I hope you’re well. Following our most recent inspection, the carpet at your property is
-    starting to show some wear and will likely need to be replaced at the next tenant turnover.
-    It’s not urgent right now, but it’s something we’ll want to plan for.
-  </p>
-
-  <p>
-    Based on the home’s size, replacement would likely fall somewhere between
-    [
-    <span id="tplCarpetLow">$0.00</span>
-    –
-    <span id="tplCarpetHigh">$0.00</span>
-    ].
-    That’s just an estimate for planning purposes, but it should give you a good idea of what to expect.
-    When the home turns over, we’ll take another look and confirm whether replacement is needed.
-  </p>
-
-  <p>
-    Getting ahead of these things helps avoid surprises and keeps the home looking sharp for the next tenant.
-    Let us know if you’d like a more detailed estimate or if you’d prefer to hold off until turnover.
-  </p>
-
-  <p>Thanks,<br/>
-  [Team Member Name]<br/>
-  Beaufort Rentals</p>
-</div>
-
-function handleInput(e) {
-  calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
-  calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
-  updateCarpetTemplate(); // <-- add this line
-}
-// Initialize
-handleInput();
-updateCarpetTemplate();
-
-
-  
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
