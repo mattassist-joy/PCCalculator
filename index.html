@@ -34,7 +34,14 @@
       border-radius: 16px;
       padding: 18px;
       box-shadow: 0 6px 24px rgba(0,0,0,.25);
+      
     }
+    .card.calc {
+  height: 360px;       /* You can adjust this number */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
     .card h2 { margin: 0 0 12px; font-size: 1.25rem; }
     label { font-size: .9rem; color: var(--muted); display:block; margin-bottom: 6px; }
     .row { display:flex; gap:10px; align-items:flex-end; }
@@ -75,7 +82,7 @@
       <!-- LEFT COLUMN: Paint -->
       <div class="col">
         <!-- Paint Calculator -->
-        <div class="card" id="paintCard">
+       <div class="card calc" id="paintCard">
           <h2>Paint Budget</h2>
           <label for="paintSqft">Area (sq ft)</label>
           <div class="row">
@@ -128,7 +135,7 @@
       <!-- RIGHT COLUMN: Carpet -->
       <div class="col">
         <!-- Carpet Calculator -->
-        <div class="card" id="carpetCard">
+      <div class="card calc" id="carpetCard">
           <h2>Carpet Replacement Budget</h2>
           <label for="carpetSqft">Area (sq ft)</label>
           <div class="row">
@@ -181,6 +188,7 @@
   </div>
 
   <script>
+    
     // Formatters with cents displayed
     const fmt = new Intl.NumberFormat(undefined, {
       style: 'currency',
@@ -263,6 +271,7 @@
   </script>
 </body>
 </html>
+
 
 
 
