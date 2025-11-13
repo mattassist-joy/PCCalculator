@@ -258,16 +258,9 @@
     paintInput.addEventListener('input', handleInput);
     carpetInput.addEventListener('input', handleInput);
 
-    // Sync the two fields for convenience
-    paintInput.addEventListener('input', () => {
-      if (!carpetInput.value) carpetInput.value = paintInput.value;
-    });
-    carpetInput.addEventListener('input', () => {
-      if (!paintInput.value) paintInput.value = carpetInput.value;
-    });
-
     // Initialize
     handleInput();
   </script>
 </body>
 </html>
+
