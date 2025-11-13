@@ -23,6 +23,7 @@
       border-radius: 16px;
       padding: 18px;
       box-shadow: 0 6px 24px rgba(0,0,0,.25);
+      margin-bottom: 20px;
     }
     .card h2 { margin: 0 0 12px; font-size: 1.25rem; }
     label { font-size: .9rem; color: var(--muted); display:block; margin-bottom: 6px; }
@@ -95,7 +96,7 @@
     </div>
 
     <!-- Template 1: Carpet Replacement -->
-    <div class="card" style="max-width: 900px; margin: 30px auto 40px auto;">
+    <div class="card" style="max-width: 900px; margin: 30px auto 20px auto;">
       <h2>Template 1: Carpet Replacement</h2>
       <p><strong>Subject:</strong> Heads up on possible carpet replacement</p>
 
@@ -121,6 +122,40 @@
       <p>
         Getting ahead of these things helps avoid surprises and keeps the home looking sharp for the next tenant.
         Let us know if you’d like a more detailed estimate or if you’d prefer to hold off until turnover.
+      </p>
+
+      <p>Thanks,<br/>
+      [Team Member Name]<br/>
+      Beaufort Rentals</p>
+    </div>
+
+    <!-- Template 2: Interior Paint -->
+    <div class="card" style="max-width: 900px; margin: 0 auto 40px auto;">
+      <h2>Template 2: Interior Paint</h2>
+      <p><strong>Subject:</strong> Heads up on possible repainting</p>
+
+      <p>Hi [Owner First Name],</p>
+
+      <p>
+        I hope you’re well. Following our recent inspection, we noticed the paint at your property is
+        starting to show some wear. It’s still in decent shape for now, but we’ll probably need to repaint
+        once the current tenant moves out.
+      </p>
+
+      <p>
+        Using your property’s square footage, repainting would likely fall somewhere between
+        [
+        <span id="tplPaintLow">$0.00</span>
+        –
+        <span id="tplPaintHigh">$0.00</span>
+        ].
+        This isn’t an exact quote, just a ballpark to help you plan ahead. We’ll confirm whether it’s needed
+        when the property turns over.
+      </p>
+
+      <p>
+        This kind of proactive planning helps us keep your property looking great and maintain its rental value.
+        If you’d like us to get a more specific estimate or just keep an eye on it for now, let us know.
       </p>
 
       <p>Thanks,<br/>
@@ -178,6 +213,22 @@
       }
     }
 
+    function updatePaintTemplate() {
+      const paintInputEl = document.getElementById('paintSqft');
+      const sqft = Math.max(0, Number(paintInputEl.value) || 0);
+
+      const lowTotal = sqft * PAINT_LOW;
+      const highTotal = sqft * PAINT_HIGH;
+
+      const tplLowEl = document.getElementById('tplPaintLow');
+      const tplHighEl = document.getElementById('tplPaintHigh');
+
+      if (tplLowEl && tplHighEl) {
+        tplLowEl.textContent = fmt.format(lowTotal);
+        tplHighEl.textContent = fmt.format(highTotal);
+      }
+    }
+
     const paintInput = document.getElementById('paintSqft');
     const carpetInput = document.getElementById('carpetSqft');
 
@@ -185,6 +236,7 @@
       calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
       calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
       updateCarpetTemplate();
+      updatePaintTemplate();
     }
 
     paintInput.addEventListener('input', handleInput);
