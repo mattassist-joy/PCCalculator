@@ -114,8 +114,26 @@
     // Initialize
     handleInput();
   </script>
+
+  <!-- ===== Template Section ===== -->
+<div style="background:#1e293b; color:#e2e8f0; padding:20px; margin-top:40px; text-align:center; border-radius:12px;">
+  <h2 style="margin:0 0 10px;">Project Estimate Template</h2>
+  <p style="margin:0;">Prepared by: <strong>Your Company Name</strong></p>
+  <p style="margin:4px 0;">Date: <span id="todayDate"></span></p>
+  <p style="margin:0;">Estimator: ____________________</p>
+  <p style="margin:0;">Client Signature: ____________________</p>
+</div>
+
+<script>
+  // Automatically fill in today's date
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString();
+</script>
+
+
+  
 </body>
 </html>
+
 
 
 
