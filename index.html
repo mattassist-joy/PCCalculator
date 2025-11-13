@@ -184,3 +184,90 @@
     // Formatters with cents displayed
     const fmt = new Intl.NumberFormat(undefined, {
       style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    const perFmt = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    // Price ranges (edit here if your market changes)
+    const PAINT_LOW = 2.00, PAINT_HIGH = 2.50;
+    const CARPET_LOW = 3.29, CARPET_HIGH = 4.01;
+
+    function calc(idPrefix, sqft, low, high) {
+      const lowEl = document.getElementById(idPrefix + 'Low');
+      const highEl = document.getElementById(idPrefix + 'High');
+      const perEl = document.getElementById(idPrefix + 'PerSq');
+      const s = Math.max(0, Number(sqft) || 0);
+
+      const lowTotal = s * low;
+      const highTotal = s * high;
+
+      lowEl.textContent = fmt.format(lowTotal);
+      highEl.textContent = fmt.format(highTotal);
+      perEl.textContent = `${perFmt.format(low)}–${perFmt.format(high)} per sq ft`;
+    }
+
+    function updateCarpetTemplate() {
+      const carpetInputEl = document.getElementById('carpetSqft');
+      const sqft = Math.max(0, Number(carpetInputEl.value) || 0);
+
+      const lowTotal = sqft * CARPET_LOW;
+      const highTotal = sqft * CARPET_HIGH;
+
+      const tplLowEl = document.getElementById('tplCarpetLow');
+      const tplHighEl = document.getElementById('tplCarpetHigh');
+
+      if (tplLowEl && tplHighEl) {
+        tplLowEl.textContent = fmt.format(lowTotal);
+        tplHighEl.textContent = fmt.format(highTotal);
+      }
+    }
+
+    function updatePaintTemplate() {
+      const paintInputEl = document.getElementById('paintSqft');
+      const sqft = Math.max(0, Number(paintInputEl.value) || 0);
+
+      const lowTotal = sqft * PAINT_LOW;
+      const highTotal = sqft * PAINT_HIGH;
+
+      const tplLowEl = document.getElementById('tplPaintLow');
+      const tplHighEl = document.getElementById('tplPaintHigh');
+
+      if (tplLowEl && tplHighEl) {
+        tplLowEl.textContent = fmt.format(lowTotal);
+        tplHighEl.textContent = fmt.format(highTotal);
+      }
+    }
+
+    const paintInput = document.getElementById('paintSqft');
+    const carpetInput = document.getElementById('carpetSqft');
+
+    function handleInput(e) {
+      calc('paint', paintInput.value, PAINT_LOW, PAINT_HIGH);
+      calc('carpet', carpetInput.value, CARPET_LOW, CARPET_HIGH);
+      updatePaintTemplate();
+      updateCarpetTemplate();
+    }
+
+    paintInput.addEventListener('input', handleInput);
+    carpetInput.addEventListener('input', handleInput);
+
+    // Sync the two fields for convenience
+    paintInput.addEventListener('input', () => {
+      if (!carpetInput.value) carpetInput.value = paintInput.value;
+    });
+    carpetInput.addEventListener('input', () => {
+      if (!paintInput.value) paintInput.value = carpetInput.value;
+    });
+
+    // Initialize
+    handleInput();
+  </script>
+</body>
+</html>
